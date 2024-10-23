@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    environment {
+        DBT_TARGET = 'dev' // Set your target environment
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                // Checkout your dbt project from version control
+                git 'https://github.com/your/repo.git' // Replace with your repo URL
+				
+				echo 'github'
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    // Install dbt and any other dependencies
+                   // sh 'pip install dbt'
+					echo 'pip install dbt'
+                }
+            }
+        }
+
+        stage('Run dbt') {
+            steps {
+                script {
+                    // Run dbt commands
+                    //sh 'dbt run --target $DBT_TARGET'
+                    //sh 'dbt test --target $DBT_TARGET' // Optional: run tests
+					echo 'dbt test --target $DBT_TARGET'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'dbt run completed successfully!'
+        }
+        failure {
+            echo 'dbt run failed!'
+        }
+    }
+}
