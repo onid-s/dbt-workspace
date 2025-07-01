@@ -1,1 +1,1 @@
-select 'test'
+select 'This is second job'
